@@ -27,7 +27,6 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	a) $this->model_name->findOne(1);
 	 producing SELECT * FROM tbl_name WHERE id = 1 LIMIT 1;
 
-
 	b)$where = array('name' => 'Mike')
 	$this->model_name->findOne(where);
 	producing SELECT * FROM tbl_name WHERE name = 'Mike' LIMIT 1;
@@ -39,7 +38,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	$this->model_name->findAll(where);
 	producing SELECT * FROM tbl_name WHERE deleted = 0
 
-2) Creating example:
+2) Create example:
 
 	$mike = array(
 		'email' => 'mike@mike.com',
@@ -49,20 +48,20 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	$this->model_name->create($mike);
 	producing INSERT INTO tbl_name ('email', 'name', 'deleted') VALUES('mike@mike.com', 'Mike', 0);
 
-3) Updating example:
+3) Update example:
 
 	$where = array('name' => 'Mike');
 	$set = array('deleted' => 1)
 	$this->model_name->update($where, $set);
 	producing UPDATE tbl_name WHERE name = 'Mike' SET deleted = 1;
 
-4) Deleting example:
+4) Delete example:
 
 	$where = array('deleted' => '1');
 	$this->model_name->delete($where);
 	producing DELETE FROM tbl_name WHERE deleted = 1;
 
-5) Searching table:
+5) Search table example:
 	$like = array('name' => 'Mi')
 	$this->model_name->search($like);
 	producing SELECT * FROM tbl_name WHERE name LIKE 'Mi'
