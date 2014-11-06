@@ -23,7 +23,8 @@ class User_model extends BaseModel
 Extending from BaseModel gives you ability for using simple CRUDE. To make your queries like this:
 	model_name - name of the model, at models directory.
 	
-	1) Reading example:
+* 1) Reading example:
+	
 	a) $this->model_name->findOne(1);
 	 producing SELECT * FROM tbl_name WHERE id = 1 LIMIT 1;
 
@@ -38,7 +39,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	$this->model_name->findAll(where);
 	producing SELECT * FROM tbl_name WHERE deleted = 0
 
-2) Create example:
+* 2) Create example:
 
 	$mike = array(
 		'email' => 'mike@mike.com',
@@ -48,20 +49,20 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	$this->model_name->create($mike);
 	producing INSERT INTO tbl_name ('email', 'name', 'deleted') VALUES('mike@mike.com', 'Mike', 0);
 
-3) Update example:
+* 3) Update example:
 
 	$where = array('name' => 'Mike');
 	$set = array('deleted' => 1)
 	$this->model_name->update($where, $set);
 	producing UPDATE tbl_name WHERE name = 'Mike' SET deleted = 1;
 
-4) Delete example:
+* 4) Delete example:
 
 	$where = array('deleted' => '1');
 	$this->model_name->delete($where);
 	producing DELETE FROM tbl_name WHERE deleted = 1;
 
-5) Search table example:
+* 5) Search table example:
 
 	$like = array('name' => 'Mi')
 	$this->model_name->search($like);
@@ -69,7 +70,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	Can use multiple fields in array
 
 
-Controller CRUD example usage:
+* 6) Controller CRUD example usage:
 
 ```
 class User extends CI_Controller
@@ -95,5 +96,5 @@ class User extends CI_Controller
 }
 ```
 
-Existing Code First model description in a test mode, please do no use it on real project
+* 7) Existing Code First model description in a test mode, please do no use it on real project
 As it can cause unpredictable data loss.
