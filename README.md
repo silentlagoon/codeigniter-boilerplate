@@ -11,10 +11,9 @@ For layout usage you must specify the layout name. By default the layouts are ke
 application/view/layouts/
 ```
 The layout name being specified using by
-```php
-setLayout()
 ```
-method.
+setLayout();
+```
 
 Layout usage example:
 
