@@ -6,8 +6,9 @@ CodeIgniter-boilerplate
 * Simple layout support
 * Simple CRUD model
 
-```
-//Model example
+Model example:
+
+```php
 class User_model extends BaseModel
 {
     protected $table = 'user';
