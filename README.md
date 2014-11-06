@@ -55,24 +55,29 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 
 * 3) Update example:
 
+```
 	$where = array('name' => 'Mike');
 	$set = array('deleted' => 1)
 	$this->model_name->update($where, $set);
 	producing UPDATE tbl_name WHERE name = 'Mike' SET deleted = 1;
+```
 
 * 4) Delete example:
 
+```
 	$where = array('deleted' => '1');
 	$this->model_name->delete($where);
 	producing DELETE FROM tbl_name WHERE deleted = 1;
+```
 
 * 5) Search table example:
 
+```
 	$like = array('name' => 'Mi')
 	$this->model_name->search($like);
 	producing SELECT * FROM tbl_name WHERE name LIKE 'Mi'
 	Can use multiple fields in array
-
+```
 
 * 6) Controller CRUD example usage:
 
