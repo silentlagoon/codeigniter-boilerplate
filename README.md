@@ -3,8 +3,8 @@ CodeIgniter-boilerplate
 
 # Features:
 
-## Simple layout support
-## Simple CRUD model
+* Simple layout support
+* Simple CRUD model
 
 ```
 //Model example
