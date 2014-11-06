@@ -69,6 +69,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 
 
 Controller CRUD example usage:
+
 class User extends CI_Controller
 {
     public function __construct()
