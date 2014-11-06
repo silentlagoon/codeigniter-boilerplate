@@ -24,7 +24,8 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	model_name - name of the model, at models directory.
 	
 * 1) Reading example:
-	
+
+```
 	a) $this->model_name->findOne(1);
 	 producing SELECT * FROM tbl_name WHERE id = 1 LIMIT 1;
 
@@ -38,9 +39,11 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	d) $where = array('deleted' => 0);
 	$this->model_name->findAll(where);
 	producing SELECT * FROM tbl_name WHERE deleted = 0
+```
 
 * 2) Create example:
 
+```
 	$mike = array(
 		'email' => 'mike@mike.com',
 		'name' => 'Mike',
@@ -48,6 +51,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	);
 	$this->model_name->create($mike);
 	producing INSERT INTO tbl_name ('email', 'name', 'deleted') VALUES('mike@mike.com', 'Mike', 0);
+```
 
 * 3) Update example:
 
