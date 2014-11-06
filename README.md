@@ -67,3 +67,30 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	$this->model_name->search($like);
 	producing SELECT * FROM tbl_name WHERE name LIKE 'Mi'
 	Can use multiple fields in array
+
+
+Controller CRUD example usage:
+class User extends CI_Controller
+{
+    public function __construct()
+    {
+        parent:: __construct();
+        $this->load->model('user_model');
+    }
+
+    public function create()
+    {
+        $user = $this->uri->segment(3);
+
+        $this->user_model->create(array('name' => $user));
+    }
+
+    public function show()
+    {
+        $users = $this->user_model->findAll()->ToArray();
+        $this->load->view('welcome_message', array('users' => $users)); 
+    }
+}
+
+Existing Code First model description in a test mode, please do no use it on real project
+As it can cause unpredictable data loss.
