@@ -44,7 +44,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 
 * 2) Create example:
 
-```
+```php
 	$mike = array(
 		'email' => 'mike@mike.com',
 		'name' => 'Mike',
@@ -56,7 +56,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 
 * 3) Update example:
 
-```
+```php
 	$where = array('name' => 'Mike');
 	$set = array('deleted' => 1)
 	$this->model_name->update($where, $set);
@@ -65,7 +65,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 
 * 4) Delete example:
 
-```
+```php
 	$where = array('deleted' => '1');
 	$this->model_name->delete($where);
 	producing DELETE FROM tbl_name WHERE deleted = 1;
@@ -73,7 +73,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 
 * 5) Search table example:
 
-```
+```php
 	$like = array('name' => 'Mi')
 	$this->model_name->search($like);
 	producing SELECT * FROM tbl_name WHERE name LIKE 'Mi'
@@ -82,7 +82,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 
 * 6) Controller CRUD example usage:
 
-```
+```php
 class User extends CI_Controller
 {
     public function __construct()
