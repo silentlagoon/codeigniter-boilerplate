@@ -26,7 +26,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	
 * 1) Reading example:
 
-```
+```php
 	a) $this->model_name->findOne(1);
 	 producing SELECT * FROM tbl_name WHERE id = 1 LIMIT 1;
 
