@@ -62,6 +62,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	producing DELETE FROM tbl_name WHERE deleted = 1;
 
 5) Search table example:
+
 	$like = array('name' => 'Mi')
 	$this->model_name->search($like);
 	producing SELECT * FROM tbl_name WHERE name LIKE 'Mi'
