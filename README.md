@@ -5,6 +5,35 @@ CodeIgniter-boilerplate
 
 * Simple layout support
 * Simple CRUD model
+ 
+For layout usage you must specify the layout name. By default the layouts are kept at the 
+```
+application/view/layouts/
+```
+The layout name being specified using by
+```php
+setLayout()
+```
+method.
+
+Layout usage example:
+
+```php
+class User extends CI_Controller
+{
+    public function __construct()
+    {
+        parent:: __construct();
+        $this->layout->setLayout('/layouts/main');
+    }
+
+    public function index()
+    {
+        $data = $this->input->post();
+        $this->layout->view('welcome', $data);
+    }
+}
+```
 
 Model example:
 
@@ -88,6 +117,7 @@ class User extends CI_Controller
     public function __construct()
     {
         parent:: __construct();
+        $this->load->helper('url');
         $this->load->model('user_model');
     }
 
