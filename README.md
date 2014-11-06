@@ -70,6 +70,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 
 Controller CRUD example usage:
 
+```
 class User extends CI_Controller
 {
     public function __construct()
@@ -91,6 +92,7 @@ class User extends CI_Controller
         $this->load->view('welcome_message', array('users' => $users)); 
     }
 }
+```
 
 Existing Code First model description in a test mode, please do no use it on real project
 As it can cause unpredictable data loss.
