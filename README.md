@@ -56,18 +56,18 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 
 ```php
 	a) $this->model_name->findOne(1);
-	 producing SELECT * FROM tbl_name WHERE id = 1 LIMIT 1;
+	 producing SELECT * FROM model_name WHERE id = 1 LIMIT 1;
 
 	b)$where = array('name' => 'Mike');
 	$this->model_name->findOne(where);
-	producing SELECT * FROM tbl_name WHERE name = 'Mike' LIMIT 1;
+	producing SELECT * FROM model_name WHERE name = 'Mike' LIMIT 1;
 
 	c) $this->model_name->findAll();
-	producing SELECT * FROM tbl_name;
+	producing SELECT * FROM model_name;
 
 	d) $where = array('deleted' => 0);
 	$this->model_name->findAll(where);
-	producing SELECT * FROM tbl_name WHERE deleted = 0
+	producing SELECT * FROM model_name WHERE deleted = 0
 ```
 
 * 2) Create example:
@@ -79,7 +79,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 		'deleted' => 0
 	);
 	$this->model_name->create($mike);
-	producing INSERT INTO tbl_name ('email', 'name', 'deleted') VALUES('mike@mike.com', 'Mike', 0);
+	producing INSERT INTO model_name ('email', 'name', 'deleted') VALUES('mike@mike.com', 'Mike', 0);
 ```
 
 * 3) Update example:
@@ -88,7 +88,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	$where = array('name' => 'Mike');
 	$set = array('deleted' => 1)
 	$this->model_name->update($where, $set);
-	producing UPDATE tbl_name WHERE name = 'Mike' SET deleted = 1;
+	producing UPDATE model_name WHERE name = 'Mike' SET deleted = 1;
 ```
 
 * 4) Delete example:
@@ -96,7 +96,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 ```php
 	$where = array('deleted' => '1');
 	$this->model_name->delete($where);
-	producing DELETE FROM tbl_name WHERE deleted = 1;
+	producing DELETE FROM model_name WHERE deleted = 1;
 ```
 
 * 5) Search table example:
@@ -104,7 +104,7 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 ```php
 	$like = array('name' => 'Mi')
 	$this->model_name->search($like);
-	producing SELECT * FROM tbl_name WHERE name LIKE 'Mi'
+	producing SELECT * FROM model_name WHERE name LIKE 'Mi'
 	Can use multiple fields in array
 ```
 
