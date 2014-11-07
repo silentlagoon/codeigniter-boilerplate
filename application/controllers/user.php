@@ -10,6 +10,11 @@ class User extends CI_Controller
         $this->layout->setLayout('/layouts/main');
     }
 
+    public function index()
+    {
+        $this->layout->view('welcome_message');
+    }
+
     public function create()
     {
         $user = $this->uri->segment(3);
@@ -29,3 +34,5 @@ class User extends CI_Controller
         $this->layout->view('welcome_message', array('users' => $users));
     }
 }
+
+/* End of controller User */

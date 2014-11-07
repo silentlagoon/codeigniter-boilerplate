@@ -17,4 +17,6 @@
             </div>
         </div>
     <?php endforeach; ?>
+<?php else: ?>
+    <?php echo 'You are ready to go!'; ?>
 <?php endif; ?>
