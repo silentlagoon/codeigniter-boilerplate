@@ -8,6 +8,7 @@ CodeIgniter-boilerplate
 * Simple layout support
 * Simple CRUD model
 
+### Ion Auth
 To prepare database for using Ion Auth run the migration
 
 ```
@@ -17,7 +18,9 @@ Where the localhost is the address of the application downloaded.
 Form more information or settings options visit (http://benedmunds.com/ion_auth/)
 
 If you do not want to use Ion Auth just do not run a migration.
- 
+
+### Layout
+
 For layout usage you must specify the layout name. By default the layouts are kept at the 
 ```
 application/view/layouts/
@@ -45,6 +48,8 @@ class User extends CI_Controller
     }
 }
 ```
+
+### CRUD
 
 Model example:
 
