@@ -2,7 +2,6 @@
 
 /**
  * Class BaseModel
- * @author Dmitry Kurilenko
  */
 class BaseModel extends CI_Model
 {
@@ -17,11 +16,11 @@ class BaseModel extends CI_Model
         if(isset($this->fields))
         {
             $this->load->dbforge();
-            $this->createTable();
+            $this->_createTable();
         }
     }
 
-    private function createTable()
+    private function _createTable()
     {
         if( ! $this->_exists($this->table))
         {
@@ -36,33 +35,42 @@ class BaseModel extends CI_Model
 
             if($fieldsNumberAreEqual)
             {
-                foreach ($dbFields as $field)
-                {
-                    if( ! in_array($field, $this->fields) )
-                    {
-                        $fieldsData = $this->db->field_data($this->table);
-
-                        if($fieldsData)
-                        {
-                            if($this->_compareFieldsResult($field, $fieldsData) === FALSE)
-                            {
-                                $this->_recreateTable();
-                            }
-                        }
-                        else
-                        {
-                            $this->_recreateTable();
-                        }
-                    }
-                    else
-                    {
-                        $this->_recreateTable();
-                    }
-                }
+                $this->_checkFieldsParamsSame($dbFields, $this->fields);
             }
             else
             {
                 $this->_recreateTable();
+            }
+        }
+    }
+
+    /**
+     * @param $dbFields
+     * @param $modelFields
+     */
+    private function _checkFieldsParamsSame($dbFields, $modelFields)
+    {
+        foreach ($dbFields as $field)
+        {
+            if( ! in_array($field, $modelFields) )
+            {
+                $fieldsData = $this->db->field_data($this->table);
+
+                if($fieldsData)
+                {
+                    if($this->_compareFieldsResult($field, $fieldsData) === FALSE)
+                    {
+                        $this->_alter_modify_column($modelFields[$field]);
+                    }
+                }
+                else
+                {
+                    $this->_recreateTable();
+                }
+            }
+            else
+            {
+                $this->_alter_add_column($modelFields[$field]);
             }
         }
     }
@@ -129,12 +137,23 @@ class BaseModel extends CI_Model
                     }
                 }
             }
+            else
+            {
+                $this->_recreateTable();
+            }
         }
-        return true;
+        return TRUE;
     }
 
-    private function _alter()
-    {}
+    private function _alter_modify_column($column)
+    {
+        $this->dbforge->modify_column($this->table, $column);
+    }
+
+    private function _alter_add_column($column)
+    {
+        $this->dbforge->add_column($this->table, $column);
+    }
 
     private function _exists($table)
     {

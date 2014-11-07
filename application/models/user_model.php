@@ -12,8 +12,7 @@ class User_model extends BaseModel
         ),
         'name' => array(
             'type' => 'VARCHAR',
-            'constraint' => 50,
-            'default' => 'unknown'
+            'constraint' => 50
         ),
         'password' => array(
             'type' => 'VARCHAR',
