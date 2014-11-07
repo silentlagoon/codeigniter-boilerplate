@@ -16,7 +16,7 @@ localhost/migrate
 Where the localhost is the address of the application downloaded.
 Form more information or settings options visit (http://benedmunds.com/ion_auth/)
 
-If you don`t want to use Ion Auth just don`t run a migration.
+If you do not want to use Ion Auth just do not run a migration.
  
 For layout usage you must specify the layout name. By default the layouts are kept at the 
 ```
