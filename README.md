@@ -3,8 +3,20 @@ CodeIgniter-boilerplate
 
 # Features:
 
+* CodeIgniter 2.2.0
+* Ion Auth as authentication Library
 * Simple layout support
 * Simple CRUD model
+
+To prepare database for using Ion Auth run the migration
+
+```
+localhost/migrate
+```
+Where the localhost is the address of the application downloaded.
+Form more information or settings options visit (http://benedmunds.com/ion_auth/)
+
+If you don`t want to use Ion Auth just don`t run a migration.
  
 For layout usage you must specify the layout name. By default the layouts are kept at the 
 ```
