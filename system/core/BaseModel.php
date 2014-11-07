@@ -28,19 +28,8 @@ class BaseModel extends CI_Model
         }
         else
         {
-            $dbFields               = $this->db->list_fields($this->table);
-            $fieldsQty              = array_keys($dbFields);
-            $modelFieldsQty         = array_keys($this->fields);
-            $fieldsNumberAreEqual   = (count($fieldsQty) == count($modelFieldsQty)) ? TRUE : FALSE;
-
-            if($fieldsNumberAreEqual)
-            {
-                $this->_checkFieldsParamsSame($dbFields, $this->fields);
-            }
-            else
-            {
-                $this->_recreateTable();
-            }
+            $dbFields = $this->db->list_fields($this->table);
+            $this->_checkFieldsParamsSame($dbFields, $this->fields);
         }
     }
 
@@ -145,22 +134,35 @@ class BaseModel extends CI_Model
         return TRUE;
     }
 
+    /**
+     * @param $column
+     */
     private function _alter_modify_column($column)
     {
         $this->dbforge->modify_column($this->table, $column);
     }
 
+    /**
+     * @param $column
+     */
     private function _alter_add_column($column)
     {
         $this->dbforge->add_column($this->table, $column);
     }
 
+    /**
+     * @param $table
+     * @return bool
+     */
     private function _exists($table)
     {
         $dbFields = "SHOW TABLES LIKE '".$table."'";
         return ($this->db->query($dbFields)->result()) ? TRUE : FALSE;
     }
 
+    /**
+     * @param $fields
+     */
     private function _setFields($fields)
     {
         $this->dbforge->add_field($fields);
@@ -312,7 +314,8 @@ class BaseModel extends CI_Model
      */
     function create($params)
     {
-        if (is_int($params)) {
+        if (is_int($params))
+        {
             throw new InvalidArgumentException('options can be array or object only. Input was: '.$params);
         }
         $this->db->insert($this->table, $params);
@@ -324,12 +327,16 @@ class BaseModel extends CI_Model
      */
     function delete($params)
     {
-        if (is_int($params)) {
+        if (is_int($params))
+        {
             $this->db->delete($this->table, array('id' => $params));
         }
-        else if (is_array($params)) {
+        else if (is_array($params))
+        {
             $this->db->delete($this->table, $params);
-        } else {
+        }
+        else
+        {
             throw new InvalidArgumentException('Options can be integer or array only. Input was: '.$params);
         }
     }
@@ -340,12 +347,16 @@ class BaseModel extends CI_Model
      */
     public function update($params, $data=array())
     {
-        if (is_int($params)) {
+        if (is_int($params))
+        {
             $this->db->where('id', $params)->update($this->table, $data);
         }
-        else if (is_array($params)) {
+        else if (is_array($params))
+        {
             $this->db->where($params)->update($this->table, $data);
-        } else {
+        }
+        else
+        {
             throw new InvalidArgumentException('Options can be integer or array only. Input was: '.$params);
         }
     }
@@ -356,7 +367,8 @@ class BaseModel extends CI_Model
      */
     function search($params)
     {
-        if ( ! is_array($params)) {
+        if ( ! is_array($params))
+        {
             throw new InvalidArgumentException('params can be array only. Input was: '.$params);
         }
         return $this->db->from($this->table)->or_like($params)->get()->result_array();
