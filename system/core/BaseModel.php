@@ -5,20 +5,49 @@
  */
 class BaseModel extends CI_Model
 {
+    /**
+     * Define table name at the database
+     */
     protected $table;
+
+    /**
+     * Holds fields information. Must be declared according to DBFORGE syntax.
+     */
     protected $fields;
+
+    /**
+     * Defines if the CodeFirst function activated or not.
+     */
+    protected $codeFirst = FALSE;
+
+    /**
+     * Remove fields from the list which should not be updated
+     */
+    protected $filterAttributes = FALSE;
+
+    /**
+     * Used to detect if it is findOne or findAll
+     */
     private $_isSingleRow;
+
+    /**
+     * Holds the parameters and options of the query which passed to model.
+     */
     private $settings;
 
     public function __construct()
     {
         parent::__construct();
-        if(isset($this->fields))
+        if($this->codeFirst && isset($this->fields))
         {
             $this->load->dbforge();
             $this->_createTable();
         }
     }
+
+    /* --------------------------------------------------------------
+     * INTERNAL METHODS
+     * ------------------------------------------------------------ */
 
     private function _createTable()
     {
@@ -215,12 +244,14 @@ class BaseModel extends CI_Model
     }
 
     /**
+     * Internal method. Used to build query to database.
      * @return mixed
      */
     private function _makeQuery()
     {
-        $params = $this->settings['params'];
+        $params  = $this->settings['params'];
         $options = $this->settings['options'];
+
         if(is_array($params))
         {
             return $this->db
@@ -240,6 +271,27 @@ class BaseModel extends CI_Model
                 ->get($options['table']);
         }
     }
+
+    /**
+     * Remove attributes which is filtered
+     * @param $params
+     * @return mixed
+     */
+    private function _filterAttributes($params)
+    {
+        if($this->$filterAttributes)
+        {
+            foreach($this->$filterAttributes as $attribute)
+            {
+                unset($params[$attribute]);
+            }
+        }
+        return $params;
+    }
+
+    /* --------------------------------------------------------------
+     * EXTERNAL METHODS
+     * ------------------------------------------------------------ */
 
     /**
      * @param $field
@@ -347,6 +399,7 @@ class BaseModel extends CI_Model
      */
     public function update($params, $data=array())
     {
+        $this->_filterAttributes($params);
         if (is_int($params))
         {
             $this->db->where('id', $params)->update($this->table, $data);
@@ -365,7 +418,7 @@ class BaseModel extends CI_Model
      * @param $params
      * @return mixed
      */
-    function search($params)
+    public function search($params)
     {
         if ( ! is_array($params))
         {
