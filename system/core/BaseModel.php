@@ -26,6 +26,11 @@ class BaseModel extends CI_Model
     protected $filterAttributes = FALSE;
 
     /**
+     * Used for collecting relations
+     */
+    private $_with;
+
+    /**
      * Used to detect if it is findOne or findAll
      */
     private $_isSingleRow;
@@ -244,7 +249,6 @@ class BaseModel extends CI_Model
     }
 
     /**
-     * Internal method. Used to build query to database.
      * @return mixed
      */
     private function _makeQuery()
@@ -255,19 +259,19 @@ class BaseModel extends CI_Model
         if(is_array($params))
         {
             return $this->db
-                ->order_by($options['field'])
+                ->order_by($options['field'], $options['sort_type'])
                 ->get_where($options['table'], $params, $options['limit']);
         }
         elseif(intval($params))
         {
             return $this->db
-                ->order_by($options['field'])
+                ->order_by($options['field'], $options['sort_type'])
                 ->get_where($options['table'], array('id' => $params), $options['limit']);
         }
         elseif(is_null($params))
         {
             return $this->db
-                ->order_by($options['field'])
+                ->order_by($options['field'], $options['sort_type'])
                 ->get($options['table']);
         }
     }
@@ -293,13 +297,31 @@ class BaseModel extends CI_Model
      * EXTERNAL METHODS
      * ------------------------------------------------------------ */
 
+    public function with()
+    {
+        $has_many = array(
+            'posts' => array(
+                'users_id' => 1,
+                'date' => 2
+            )
+        );
+        foreach($has_many as $table=>$key)
+        {
+            $options['table'] = $table;
+            $this->_with[] = $this->findAll($key);
+        }
+        return $this;
+    }
+
     /**
-     * @param $field
+     * @param string $field
+     * @param string $sortType
      * @return $this
      */
-    public function orderBy($field = 'id')
+    public function orderBy($field = 'id', $sortType = 'ASC')
     {
         $this->settings['options']['field'] = $field;
+        $this->settings['options']['sort_type'] = $sortType;
         return $this;
     }
 
@@ -310,7 +332,7 @@ class BaseModel extends CI_Model
      */
     public function findOne($params, $options = array())
     {
-        $this->settings = $this->_find($params, $options);
+        $this->_find($params, $options);
         $this->_isSingleRow = true;
         return $this;
     }
@@ -386,8 +408,7 @@ class BaseModel extends CI_Model
         else if (is_array($params))
         {
             $this->db->delete($this->table, $params);
-        }
-        else
+        } else
         {
             throw new InvalidArgumentException('Options can be integer or array only. Input was: '.$params);
         }
@@ -399,7 +420,6 @@ class BaseModel extends CI_Model
      */
     public function update($params, $data=array())
     {
-        $this->_filterAttributes($data);
         if (is_int($params))
         {
             $this->db->where('id', $params)->update($this->table, $data);
@@ -407,8 +427,7 @@ class BaseModel extends CI_Model
         else if (is_array($params))
         {
             $this->db->where($params)->update($this->table, $data);
-        }
-        else
+        } else
         {
             throw new InvalidArgumentException('Options can be integer or array only. Input was: '.$params);
         }
@@ -418,7 +437,7 @@ class BaseModel extends CI_Model
      * @param $params
      * @return mixed
      */
-    public function search($params)
+    function search($params)
     {
         if ( ! is_array($params))
         {
