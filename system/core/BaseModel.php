@@ -399,7 +399,7 @@ class BaseModel extends CI_Model
      */
     public function update($params, $data=array())
     {
-        $this->_filterAttributes($params);
+        $this->_filterAttributes($data);
         if (is_int($params))
         {
             $this->db->where('id', $params)->update($this->table, $data);
