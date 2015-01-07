@@ -76,14 +76,14 @@ Extending from BaseModel gives you ability for using simple CRUDE. To make your 
 	 producing SELECT * FROM model_name WHERE id = 1 LIMIT 1;
 
 	b)$where = array('name' => 'Mike');
-	$this->model_name->findOne(where);
+	$this->model_name->findOne($where);
 	producing SELECT * FROM model_name WHERE name = 'Mike' LIMIT 1;
 
 	c) $this->model_name->findAll();
 	producing SELECT * FROM model_name;
 
 	d) $where = array('deleted' => 0);
-	$this->model_name->findAll(where);
+	$this->model_name->findAll($where);
 	producing SELECT * FROM model_name WHERE deleted = 0
 ```
 
